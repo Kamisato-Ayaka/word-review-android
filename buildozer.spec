@@ -12,9 +12,9 @@ source.include_exts = py,png,jpg,kv,atlas,txt
 source.include_dirs = assets
 
 # 需求的Python包
-# 注意：lxml 是 python-docx 的依赖，需要 C 编译
-# Pillow 需要 libjpeg/zlib 等系统库
-requirements = python3,kivy,lxml,python-docx,openai,httpx,Pillow,edge-tts,qrcode,pyjnius,certifi,charset-normalizer,idna,urllib3,requests,pydantic,typing-extensions,distro
+# 固定Python 3.11（兼容性最好的稳定版）
+# 简化依赖，避免C扩展编译失败
+requirements = python3==3.11.9,kivy==2.3.0,lxml,python-docx,openai,httpx,Pillow,qrcode,pyjnius,certifi,charset-normalizer,idna,urllib3,requests,pydantic,typing-extensions,distro
 
 # 架构：只构建 32 位 armeabi-v7a
 android.arch = armeabi-v7a

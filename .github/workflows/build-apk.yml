@@ -8,6 +8,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-22.04
+    timeout-minutes: 120
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -25,9 +26,7 @@ jobs:
             build-essential git python3 python3-dev python3-pip \
             unzip zip autoconf libtool pkg-config \
             libncurses-dev cmake \
-            libffi-dev libssl-dev automake gettext \
-            libncursesw5-dev || true
-          # 兼容旧系统：尝试安装已废弃的包
+            libffi-dev libssl-dev automake gettext
           sudo apt-get install -y libtinfo5 || true
 
       - name: Install Python build tools
@@ -39,14 +38,20 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/.buildozer
-          key: buildozer-global-${{ hashFiles('buildozer.spec') }}
+          key: buildozer-global-v2-${{ hashFiles('buildozer.spec') }}
 
       - name: Build APK (32-bit armeabi-v7a)
         run: |
-          export USE_BUILDozer=1
-          buildozer android debug
+          export BUILDOZER_WARN_ON_ROOT=0
+          buildozer android debug 2>&1 | tee build.log
         env:
           BUILDOZER_WARN_ON_ROOT: 0
+
+      - name: Show build log tail on failure
+        if: failure()
+        run: |
+          echo "=== Build log (last 100 lines) ==="
+          tail -n 100 build.log || true
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
@@ -54,3 +59,11 @@ jobs:
           name: wordreview-armeabi-v7a-apk
           path: bin/*.apk
           retention-days: 30
+
+      - name: Upload build log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-log
+          path: build.log
+          retention-days: 7
