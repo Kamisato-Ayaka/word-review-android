@@ -21,3 +21,6 @@ Thumbs.db
 # IDE
 .vscode/
 .idea/
+
+# 本地辅助脚本
+push_to_github.bat
