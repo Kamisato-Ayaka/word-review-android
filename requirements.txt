@@ -1,0 +1,8 @@
+# 单词复习Android版 - Python依赖
+kivy>=2.1.0
+python-docx>=0.8.11
+openai>=1.0.0
+httpx>=0.24.0
+Pillow>=9.0.0
+edge-tts>=6.0.0
+qrcode>=7.0

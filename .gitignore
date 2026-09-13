@@ -1,0 +1,23 @@
+# Buildozer
+.buildozer/
+bin/
+*.apk
+*.aab
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+
+# Kivy
+.kivy/
+*.kvi
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
