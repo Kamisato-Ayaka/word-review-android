@@ -19,6 +19,9 @@ requirements = python3,kivy,lxml,python-docx,openai,httpx,Pillow,edge-tts,qrcode
 # 架构：只构建 32 位 armeabi-v7a
 android.arch = armeabi-v7a
 
+# 自动接受SDK许可
+android.accept_sdk_license = True
+
 # API 级别
 android.api = 33
 android.minapi = 21
